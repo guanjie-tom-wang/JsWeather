@@ -41,6 +41,8 @@ body {
   background: var(--bg_main);
   color: var(--text_dark);
   padding: 50px;
+  background-size: cover;
+  background-image: url(./matrix-code-animation-gif-free-animated-background-716.gif);
 }
 /*CUSTOM VARIABLES HERE*/
 .top-banner {
