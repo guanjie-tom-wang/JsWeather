@@ -49,7 +49,7 @@
             updateUI(data);
           })
           .catch(() => {
-            msg.textContent = "Please search for a valid city 😩";
+            showError();
           });
       }
 
@@ -72,10 +72,8 @@
         list.appendChild(li);
       }
 
-      // Refresh the weather data for the last searched city every minute
       setInterval(() => {
         if (lastSearchedCity.length > 0) {
-          // Clear the list before updating
           list.innerHTML = "";
           lastSearchedCity.forEach((city) => {
             fetchWeatherData(city);
@@ -83,8 +81,8 @@
         }
       }, 60000);
       document.addEventListener("DOMContentLoaded", function () {
-        const userLang = navigator.language || navigator.userLanguage; // 获取用户语言
-        translatePage(userLang); // 调用翻译函数
+        const userLang = navigator.language || navigator.userLanguage;
+        translatePage(userLang);
       });
       function translatePage(lang) {
         const texts = {
@@ -93,36 +91,55 @@
             searchPlaceholder: "Search for a city",
             submitButton: "SUBMIT",
             errorMessage: "Please search for a valid city 😩",
-            // 其他需要翻译的文本...
           },
           es: {
-            // 西班牙语示例
             heading: "Clima Simple",
             searchPlaceholder: "Buscar una ciudad",
             submitButton: "ENVIAR",
             errorMessage: "Por favor, busque una ciudad válida 😩",
-            // 其他需要翻译的文本...
           },
           zh: {
             heading: "简单天气",
-            searchPlaceholder: "搜素城市",
-            submitButton: "确认",
+            searchPlaceholder: "搜索城市（拼音）",
+            submitButton: "提交",
             errorMessage: "确保正确输入城市名称😩",
           },
         };
 
         const currentTexts = texts[lang.split("-")[0]] || texts.en; // 默认为英语
 
-        // 更新网页内容
         document.querySelector(".heading").textContent = currentTexts.heading;
         document.querySelector(".top-banner form input").placeholder =
           currentTexts.searchPlaceholder;
         document.querySelector(".top-banner form button").textContent =
           currentTexts.submitButton;
+      }
+      function showError() {
+        const userLang = navigator.language || navigator.userLanguage; // 获取用户语言
+        const texts = {
+          en: {
+            heading: "Simple Weather",
+            searchPlaceholder: "Search for a city",
+            submitButton: "SUBMIT",
+            errorMessage: "Please search for a valid city 😩",
+          },
+          es: {
+            heading: "Clima Simple",
+            searchPlaceholder: "Buscar una ciudad",
+            submitButton: "ENVIAR",
+            errorMessage: "Por favor, busque una ciudad válida 😩",
+          },
+          zh: {
+            heading: "简单天气",
+            searchPlaceholder: "搜索城市（拼音）",
+            submitButton: "提交",
+            errorMessage: "确保正确输入城市名称😩",
+          },
+        };
+        const currentTexts = texts[userLang.split("-")[0]] || texts.en;
         document.querySelector(".top-banner .msg").textContent =
           currentTexts.errorMessage;
       }
-      // 更新其他需要翻译的元素...
     </script>
   </body>
 </html>
